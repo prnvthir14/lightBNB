@@ -1,3 +1,5 @@
+//DB HELPERSSS
+
 const properties = require('./json/properties.json');
 const users = require('./json/users.json');
 
@@ -194,25 +196,22 @@ const getAllProperties = function(options, limit = 10) {
 
   }
 
-    // 4
-    queryParams.push(limit);
-    queryString += `
-    GROUP BY properties.id
-    ORDER BY cost_per_night
-    LIMIT $${queryParams.length};
-    `;
+  // 4
+  queryParams.push(limit);
+  queryString += `
+  GROUP BY properties.id
+  ORDER BY cost_per_night
+  LIMIT $${queryParams.length};
+  `;
+
+  // 5
+  console.log(queryString, queryParams);
+
+  // 6
+  return pool.query(queryString, queryParams)
+  .then(res => res.rows);
+ 
   
-    // 5
-    console.log(queryString, queryParams);
-  
-    // 6
-    return pool.query(queryString, queryParams)
-    .then(res => res.rows);
- 
- 
- 
- 
- 
   //OLD RETURN
   // return pool.query(`SELECT properties.*, avg(property_reviews.rating) as average_rating
   // FROM properties
